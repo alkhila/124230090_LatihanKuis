@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latihan_kuis/auth/login_page.dart';
+import 'package:latihan_kuis/order_page.dart';
 
 class HomePage extends StatelessWidget {
   final String username;
@@ -54,25 +55,41 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     // Memanggil widget _menuItem() secara manual untuk setiap menu
                     _MenuMakanan(
-                      nama: "Nasi Goreng",
+                      context,
+                      nama: "Ayam Goreng",
+                      harga: "Rp 40000",
+                      foto: "assets/ayam_goreng.jpg",
+                    ),
+                    _MenuMakanan(
+                      context,
+                      nama: "Sandwich",
                       harga: "Rp 15000",
                       foto:
-                          "assets/logo_burger.png", // Ganti dengan path gambar Anda
+                          "assets/sandwich.jpg", // Ganti dengan path gambar Anda
                     ),
                     _MenuMakanan(
-                      nama: "Mie Ayam",
+                      context,
+                      nama: "Burger",
                       harga: "Rp 12000",
-                      foto: "assets/logo_burger.png",
+                      foto: "assets/burger.jpg",
                     ),
                     _MenuMakanan(
-                      nama: "Sate Ayam",
-                      harga: "Rp 20000",
-                      foto: "assets/logo_burger.png",
-                    ),
-                    _MenuMakanan(
-                      nama: "Bakso",
+                      context,
+                      nama: "Kentang Goreng",
                       harga: "Rp 10000",
-                      foto: "assets/logo_burger.png",
+                      foto: "assets/kentang_goreng.jpg",
+                    ),
+                    _MenuMakanan(
+                      context,
+                      nama: "Fettucini",
+                      harga: "Rp 20000",
+                      foto: "assets/fettucini.jpg",
+                    ),
+                    _MenuMakanan(
+                      context,
+                      nama: "Pizza",
+                      harga: "Rp 50000",
+                      foto: "assets/pizza.jpg",
                     ),
                     // Tambahkan menu lainnya di sini
                   ],
@@ -85,7 +102,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _MenuMakanan({required nama, required harga, required foto}) {
+  Widget _MenuMakanan(
+    BuildContext context, {
+    required String nama,
+    required String harga,
+    required String foto,
+  }) {
     return Container(
       child: Card(
         margin: EdgeInsets.all(8),
@@ -99,11 +121,28 @@ class HomePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(foto, width: 100, height: 100),
             ),
+            const SizedBox(height: 5),
             Text(nama, style: TextStyle(fontWeight: FontWeight.bold)),
             Text("Harga: $harga", style: TextStyle()),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // Navigasi ke OrderPage saat tombol ditekan
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      // Ganti dengan nama widget halaman pemesanan Anda
+                      // Kirim data nama, harga, dan foto ke halaman OrderPage
+                      return OrderPage(
+                        namaMenu: nama,
+                        hargaMenu: harga,
+                        fotoMenu: foto,
+                      );
+                    },
+                  ),
+                );
+              },
               child: Text("Pesan", style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color.fromARGB(255, 150, 109, 88),
