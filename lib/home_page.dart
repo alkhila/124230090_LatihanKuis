@@ -10,22 +10,54 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Halo $username', style: TextStyle(color: Colors.white)),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Halo $username',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            Text(
+              'Mau makan apa hari ini?',
+              style: TextStyle(fontSize: 14, color: Colors.white),
+            ),
+          ],
+        ),
         backgroundColor: const Color.fromARGB(255, 150, 109, 88),
         actions: [
           IconButton(
+            icon: Icon(Icons.logout_outlined, color: Colors.red),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return LoginPage();
-                  },
-                ),
-                (router) => false,
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Konfirmasi Logout'),
+                    content: Text('Anda yakin ingin keluar dari akun?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('Batal'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text('Ya'),
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                            (router) => false,
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                },
               );
             },
-            icon: Icon(Icons.logout_outlined, color: Colors.red),
           ),
         ],
       ),
@@ -36,9 +68,8 @@ class HomePage extends StatelessWidget {
             Image.asset(
               'assets/banner.jpg',
               height: 200,
-              width: double.infinity, // Membuat gambar memenuhi lebar layar
-              fit: BoxFit
-                  .cover, // Memastikan gambar memenuhi area yang ditentukan tanpa distorsi
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
             const SizedBox(height: 30),
             Text(
@@ -53,7 +84,6 @@ class HomePage extends StatelessWidget {
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 11,
                   children: <Widget>[
-                    // Memanggil widget _menuItem() secara manual untuk setiap menu
                     _MenuMakanan(
                       context,
                       nama: "Ayam Goreng",
@@ -64,8 +94,7 @@ class HomePage extends StatelessWidget {
                       context,
                       nama: "Sandwich",
                       harga: "Rp 15000",
-                      foto:
-                          "assets/sandwich.jpg", // Ganti dengan path gambar Anda
+                      foto: "assets/sandwich.jpg",
                     ),
                     _MenuMakanan(
                       context,
@@ -91,7 +120,6 @@ class HomePage extends StatelessWidget {
                       harga: "Rp 50000",
                       foto: "assets/pizza.jpg",
                     ),
-                    // Tambahkan menu lainnya di sini
                   ],
                 ),
               ),
@@ -111,10 +139,8 @@ class HomePage extends StatelessWidget {
     return Container(
       child: Card(
         margin: EdgeInsets.all(8),
-        elevation: 6, // Beri efek bayangan
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15), // Atur sudut melengkung
-        ),
+        elevation: 6,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Column(
           children: [
             ClipRRect(
@@ -127,13 +153,10 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navigasi ke OrderPage saat tombol ditekan
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      // Ganti dengan nama widget halaman pemesanan Anda
-                      // Kirim data nama, harga, dan foto ke halaman OrderPage
                       return OrderPage(
                         namaMenu: nama,
                         hargaMenu: harga,

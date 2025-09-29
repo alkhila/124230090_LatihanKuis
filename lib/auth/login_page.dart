@@ -19,31 +19,22 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         body: Center(
           child: SingleChildScrollView(
-            // Gunakan SingleChildScrollView untuk menghindari overflow jika keyboard muncul
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
                 Image.asset('assets/logo_burger.png', width: 200, height: 200),
                 const SizedBox(height: 20),
-                // Bungkus seluruh widget form dengan Card
                 Card(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ), // Tambahkan margin di samping
-                  elevation: 4, // Beri efek bayangan
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  elevation: 4,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ), // Atur sudut melengkung
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(
-                      16.0,
-                    ), // Tambahkan padding di dalam Card
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
-                        // Tambahkan teks "Login Member"
                         Text(
                           'Login',
                           style: TextStyle(
@@ -53,13 +44,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 20),
                         _usernameField(),
-                        const SizedBox(
-                          height: 10,
-                        ), // Tambahkan jarak antar field
+                        const SizedBox(height: 10),
                         _passwordField(),
-                        const SizedBox(
-                          height: 20,
-                        ), // Tambahkan jarak sebelum tombol
+                        const SizedBox(height: 20),
                         _loginButton(context),
                       ],
                     ),
